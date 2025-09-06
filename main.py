@@ -3,23 +3,29 @@ import sys
 from body import *
 from space import Space
 
-DIMENSIONS = (720, 1080)
+DIMENSIONS = (1080, 720)
 FPS = 120
 
 # BODIES
 rec1 = Body(
-            pos0 = [0,0], 
+            pos0 = [0,200], 
             dim = (100, 100), 
             color = (250, 0, 0), 
             mass = 30, 
-            velocity = [2, 3])
+            velocity = [10, 0])
 rec2 = Body(
-            pos0 = [500,600], 
-            dim = (100, 100), 
+            pos0 = [620,200], 
+            dim = (20, 20), 
             color = (0, 250, 0), 
-            mass = 30, 
-            velocity = [2, 0])
-bodies = (rec1, rec2)
+            mass = 5, 
+            velocity = [-2, 0])
+rec3 = Body(
+            pos0 = [610,250], 
+            dim = (20, 20), 
+            color = (0, 250, 0), 
+            mass = 5, 
+            velocity = [-2, 2])
+bodies = (rec1, rec2, rec3)
 
 
 pygame.init()

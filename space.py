@@ -11,19 +11,27 @@ class Space:
             obj.pos0[1] += obj.velocity[1] * time
         self.updateVel()
         self.updateColisions()
+        
 
     
     def updateVel(self):
         for i in self.bodies:
             if i.pos0[0] < 0 or i.pos0[0] + i.dim[0] > self.dim[0]:
                 i.velocity[0] = -i.velocity[0]
+
             if i.pos0[1] < 0 or i.pos0[1] + i.dim[1] > self.dim[1]:
                 i.velocity[1] = -i.velocity[1]
+            # With gravity
+            """
+            if i.pos0[1] < 0 or i.pos0[1] + i.dim[1] > self.dim[1]:
+                i.velocity[1] = min(-(i.velocity[1] - 0.5 * i.mass), 0)
+            else:
+                i.velocity[1] += 9.81
+            """
             
     
     def updateColisions(self):
         x_col_pairs = set()
-        y_col_pairs = set()
         for i in self.bodies:
             for k in self.bodies:
                 if i != k:
@@ -31,8 +39,8 @@ class Space:
                     overlap_x = i.pos0[0] + i.dim[0] > k.pos0[0] and k.pos0[0] + k.dim[0] > i.pos0[0]
                     overlap_y = i.pos0[1] + i.dim[1] > k.pos0[1] and k.pos0[1] + k.dim[1] > i.pos0[1]
                     if overlap_x and overlap_y:
-                        x_col_pairs.add(col)
-                        print("boom")
+                        if (k, i) not in x_col_pairs:
+                            x_col_pairs.add(col)
         
         for col in x_col_pairs:
             i = col[0]
